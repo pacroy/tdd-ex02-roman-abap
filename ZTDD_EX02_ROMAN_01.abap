@@ -57,6 +57,9 @@ CLASS ltcl_roman01 IMPLEMENTATION.
     cl_abap_unit_assert=>assert_equals(
             exp = 'III'
             act = lo_roman->convert( 3 ) ).
+    cl_abap_unit_assert=>assert_equals(
+            exp = 'IV'
+            act = lo_roman->convert( 4 ) ).
   ENDMETHOD.
 
 ENDCLASS.
