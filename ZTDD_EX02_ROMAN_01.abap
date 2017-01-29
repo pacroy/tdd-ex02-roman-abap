@@ -23,10 +23,10 @@ CLASS lcl_roman IMPLEMENTATION.
     DATA(lv_number) = iv_input.
     CLEAR rv_output.
 
-    IF lv_number >= 4.
+    WHILE ( lv_number >= 4 ).
       rv_output = rv_output && 'IV'.
       lv_number = lv_number - 4.
-    ENDIF.
+    ENDWHILE.
     WHILE ( lv_number >= 1 ).
       rv_output = rv_output && 'I'.
       lv_number = lv_number - 1.
