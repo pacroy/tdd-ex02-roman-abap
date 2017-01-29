@@ -54,7 +54,8 @@ CLASS ltcl_roman01 DEFINITION FINAL FOR TESTING
       get_i_when_1 FOR TESTING RAISING cx_static_check,
       get_ii_when_2 FOR TESTING RAISING cx_static_check,
       get_iii_when_3 FOR TESTING RAISING cx_static_check,
-      get_iv_when_4 FOR TESTING RAISING cx_static_check.
+      get_iv_when_4 FOR TESTING RAISING cx_static_check,
+      get_v_when_5 FOR TESTING RAISING cx_static_check.
     METHODS get_new_roman
       RETURNING
         VALUE(r_result) TYPE REF TO lcl_roman.
@@ -93,6 +94,13 @@ CLASS ltcl_roman01 IMPLEMENTATION.
     cl_abap_unit_assert=>assert_equals(
             exp = 'IV'
             act = lo_roman->convert( 4 ) ).
+  ENDMETHOD.
+
+  METHOD get_v_when_5.
+    DATA(lo_roman) = get_new_roman( ).
+    cl_abap_unit_assert=>assert_equals(
+            exp = 'V'
+            act = lo_roman->convert( 5 ) ).
   ENDMETHOD.
 
 ENDCLASS.
