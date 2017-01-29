@@ -42,10 +42,9 @@ CLASS ltcl_roman01 IMPLEMENTATION.
 
   METHOD first_test.
     DATA(lo_roman) = NEW lcl_roman( ).          "Arrange
-    DATA(lv_actual) = lo_roman->convert( 1 ).   "Act
-    cl_abap_unit_assert=>assert_equals(         "Assert
+    cl_abap_unit_assert=>assert_equals(         "Act & Assert
             exp = 'I'
-            act = lv_actual ).
+            act = lo_roman->convert( 1 ) ).
   ENDMETHOD.
 
 ENDCLASS.
