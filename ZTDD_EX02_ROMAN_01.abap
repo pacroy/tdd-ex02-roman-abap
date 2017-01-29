@@ -20,7 +20,14 @@ ENDCLASS.
 CLASS lcl_roman IMPLEMENTATION.
 
   METHOD convert.
-    rv_output = 'I'.
+    DATA(lv_number) = iv_input.
+    CLEAR rv_output.
+
+    rv_output = rv_output && 'I'.
+    lv_number = lv_number - 1.
+    IF ( lv_number > 0 ).
+      rv_output = rv_output && 'I'.
+    ENDIF.
   ENDMETHOD.
 
 ENDCLASS.
