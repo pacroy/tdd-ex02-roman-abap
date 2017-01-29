@@ -8,6 +8,22 @@ REPORT ztdd_ex02_roman_01.
 *----------------------------------------------------------------------*
 * PRODUCTION CODE
 *----------------------------------------------------------------------*
+CLASS lcl_roman DEFINITION FINAL.
+
+  PUBLIC SECTION.
+    METHODS convert
+      IMPORTING iv_input         TYPE i
+      RETURNING VALUE(rv_output) TYPE string.
+
+ENDCLASS.
+
+CLASS lcl_roman IMPLEMENTATION.
+
+  METHOD convert.
+    rv_output = 'I'.
+  ENDMETHOD.
+
+ENDCLASS.
 
 *----------------------------------------------------------------------*
 * TEST CODE
