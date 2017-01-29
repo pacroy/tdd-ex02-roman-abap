@@ -11,6 +11,12 @@ REPORT ztdd_ex02_roman_01.
 CLASS lcl_roman DEFINITION FINAL.
 
   PUBLIC SECTION.
+    TYPES: BEGIN OF ts_roman_map,
+             arabic TYPE i,
+             roman  TYPE string,
+           END OF ts_roman_map,
+           tt_roman_map TYPE STANDARD TABLE OF ts_roman_map WITH EMPTY KEY.
+
     METHODS convert
       IMPORTING iv_input         TYPE i
       RETURNING VALUE(rv_output) TYPE string.
@@ -23,14 +29,15 @@ CLASS lcl_roman IMPLEMENTATION.
     DATA(lv_number) = iv_input.
     CLEAR rv_output.
 
-    WHILE ( lv_number >= 4 ).
-      rv_output = rv_output && 'IV'.
-      lv_number = lv_number - 4.
-    ENDWHILE.
-    WHILE ( lv_number >= 1 ).
-      rv_output = rv_output && 'I'.
-      lv_number = lv_number - 1.
-    ENDWHILE.
+    DATA(lt_mapping) = VALUE tt_roman_map( ( arabic = 4 roman = `IV` )
+                                           ( arabic = 1 roman = `I` ) ).
+
+    LOOP AT lt_mapping INTO DATA(ls_mapping).
+      WHILE ( lv_number >= ls_mapping-arabic ).
+        rv_output = rv_output && ls_mapping-roman.
+        lv_number = lv_number - ls_mapping-arabic.
+      ENDWHILE.
+    ENDLOOP.
   ENDMETHOD.
 
 ENDCLASS.
