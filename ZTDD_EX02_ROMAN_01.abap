@@ -29,9 +29,48 @@ CLASS lcl_roman IMPLEMENTATION.
     DATA(lv_number) = iv_input.
     CLEAR rv_output.
 
-    DATA(lt_mapping) = VALUE tt_roman_map( ( arabic = 5 roman = `V` )
-                                           ( arabic = 4 roman = `IV` )
-                                           ( arabic = 1 roman = `I` ) ).
+    DATA(lt_mapping) = VALUE tt_roman_map(
+      ( arabic = 100 roman = `C` )
+      ( arabic = 99 roman = `XCIX` )
+      ( arabic = 95 roman = `XCV` )
+      ( arabic = 94 roman = `XCIV` )
+      ( arabic = 90 roman = `XC` )
+      ( arabic = 89 roman = `LXXXIX` )
+      ( arabic = 85 roman = `LXXXV` )
+      ( arabic = 84 roman = `LXXXIV` )
+      ( arabic = 80 roman = `LXXX` )
+      ( arabic = 79 roman = `LXXIX` )
+      ( arabic = 75 roman = `LXXV` )
+      ( arabic = 74 roman = `LXXIV` )
+      ( arabic = 70 roman = `LXX` )
+      ( arabic = 69 roman = `LXIX` )
+      ( arabic = 65 roman = `LXV` )
+      ( arabic = 64 roman = `LXIV` )
+      ( arabic = 60 roman = `LX` )
+      ( arabic = 59 roman = `LIX` )
+      ( arabic = 55 roman = `LV` )
+      ( arabic = 54 roman = `LIV` )
+      ( arabic = 50 roman = `L` )
+      ( arabic = 49 roman = `XLIX` )
+      ( arabic = 45 roman = `XLV` )
+      ( arabic = 44 roman = `XLIV` )
+      ( arabic = 40 roman = `XL` )
+      ( arabic = 39 roman = `XXXIX` )
+      ( arabic = 35 roman = `XXXV` )
+      ( arabic = 34 roman = `XXXIV` )
+      ( arabic = 30 roman = `XXX` )
+      ( arabic = 29 roman = `XXIX` )
+      ( arabic = 25 roman = `XXV` )
+      ( arabic = 24 roman = `XXIV` )
+      ( arabic = 20 roman = `XX` )
+      ( arabic = 19 roman = `XIX` )
+      ( arabic = 15 roman = `XV` )
+      ( arabic = 14 roman = `XIV` )
+      ( arabic = 10 roman = `X` )
+      ( arabic = 9 roman = `IX` )
+      ( arabic = 5 roman = `V` )
+      ( arabic = 4 roman = `IV` )
+      ( arabic = 1 roman = `I` ) ).
 
     LOOP AT lt_mapping INTO DATA(ls_mapping).
       WHILE ( lv_number >= ls_mapping-arabic ).
