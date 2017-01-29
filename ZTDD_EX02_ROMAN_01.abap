@@ -25,7 +25,11 @@ ENDCLASS.
 CLASS ltcl_roman01 IMPLEMENTATION.
 
   METHOD first_test.
-    cl_abap_unit_assert=>fail( 'Implement your first test here' ).
+    DATA(lo_roman) = NEW lcl_roman( ).          "Arrange
+    DATA(lv_actual) = lo_roman->convert( 1 ).   "Act
+    cl_abap_unit_assert=>assert_equals(         "Assert
+            exp = 'I'
+            act = lv_actual ).
   ENDMETHOD.
 
 ENDCLASS.
