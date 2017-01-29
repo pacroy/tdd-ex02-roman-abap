@@ -20,11 +20,13 @@ ENDCLASS.
 CLASS lcl_roman IMPLEMENTATION.
 
   METHOD convert.
+    DATA(lv_number) = iv_input.
     CLEAR rv_output.
-    IF iv_input = 2.
+
+    WHILE ( lv_number > 0 ).
       rv_output = rv_output && 'I'.
-    ENDIF.
-    rv_output = rv_output && 'I'.
+      lv_number = lv_number - 1.
+    ENDWHILE.
   ENDMETHOD.
 
 ENDCLASS.
@@ -52,6 +54,9 @@ CLASS ltcl_roman01 IMPLEMENTATION.
     cl_abap_unit_assert=>assert_equals(
             exp = 'II'
             act = lo_roman->convert( 2 ) ).
+    cl_abap_unit_assert=>assert_equals(
+            exp = 'III'
+            act = lo_roman->convert( 3 ) ).
   ENDMETHOD.
 
 ENDCLASS.
