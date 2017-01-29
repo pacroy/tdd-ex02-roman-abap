@@ -29,7 +29,8 @@ CLASS lcl_roman IMPLEMENTATION.
     DATA(lv_number) = iv_input.
     CLEAR rv_output.
 
-    DATA(lt_mapping) = VALUE tt_roman_map( ( arabic = 4 roman = `IV` )
+    DATA(lt_mapping) = VALUE tt_roman_map( ( arabic = 5 roman = `V` )
+                                           ( arabic = 4 roman = `IV` )
                                            ( arabic = 1 roman = `I` ) ).
 
     LOOP AT lt_mapping INTO DATA(ls_mapping).
