@@ -105,3 +105,84 @@ CLASS ltcl_roman01 IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+
+CLASS ltcl_roman02 DEFINITION FINAL FOR TESTING
+  DURATION SHORT
+  RISK LEVEL HARMLESS.
+
+  PRIVATE SECTION.
+    METHODS:
+      data_driven_testing FOR TESTING RAISING cx_static_check,
+      run_variants
+        IMPORTING
+          iv_container_name TYPE etobj_name.
+ENDCLASS.
+
+
+CLASS ltcl_roman02 IMPLEMENTATION.
+
+  METHOD data_driven_testing.
+    run_variants( 'ZTDD_EX02_ROMAN_01' ).
+  ENDMETHOD.
+
+  METHOD run_variants.
+
+    DATA: lt_variants TYPE etvar_name_tabtype,
+          lo_ex       TYPE REF TO cx_root,
+          lo_roman    TYPE REF TO lcl_roman,
+          lv_arabic   TYPE i,
+          lv_roman    TYPE string.
+
+    "SECATT Test Data Container
+    TRY .
+        DATA(lo_tdc_api) = cl_apl_ecatt_tdc_api=>get_instance( iv_container_name ).
+
+        " Get all variants from test data container
+        lt_variants = lo_tdc_api->get_variant_list( ).
+
+      CATCH cx_ecatt_tdc_access INTO lo_ex.
+        cl_aunit_assert=>fail(
+            msg  = |Container { iv_container_name } failed: { lo_ex->get_text( ) }|
+            quit = if_aunit_constants=>no ).
+        RETURN.
+
+    ENDTRY.
+
+    "Skip default variant
+    DELETE lt_variants WHERE table_line = 'ECATTDEFAULT'.
+
+    "Execute test method for all data variants
+    lo_roman = NEW #( ).
+    LOOP AT lt_variants INTO DATA(lv_variant).
+
+      TRY .
+          lo_tdc_api->get_value(
+            EXPORTING
+              i_param_name = 'ARABIC'
+              i_variant_name = lv_variant
+            CHANGING
+              e_param_value = lv_arabic ).
+          lo_tdc_api->get_value(
+            EXPORTING
+              i_param_name = 'ROMAN'
+              i_variant_name = lv_variant
+            CHANGING
+              e_param_value = lv_roman ).
+
+          DATA(lv_actual) = lo_roman->convert( lv_arabic ).
+          cl_abap_unit_assert=>assert_equals(
+                  msg = |Variant { lv_variant } failed: Actual [{ lv_actual }] Expect [{ lv_roman }]|
+                  exp = lv_roman
+                  act = lv_actual ).
+
+        CATCH cx_root INTO lo_ex.
+          cl_aunit_assert=>fail(
+              msg  = |Variant { lv_variant } failed: { lo_ex->get_text( ) }|
+              quit = if_aunit_constants=>no ).
+      ENDTRY.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+ENDCLASS.
